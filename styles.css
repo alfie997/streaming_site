@@ -1,0 +1,64 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+#root, #__next {
+  isolation: isolate;
+}
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+body {
+  background: url(assets/alois.jpg) -50px 230px/700px no-repeat,
+              url(assets/alois.jpg) 820px 230px/700px no-repeat,
+              url(assets/pattern.jpg) -50px -25px/350px;
+  /* height: 1000px; */
+}
+
+.main-container {
+  background-color: rgb(48, 19, 15);
+  background: url(assets/cabinet.jpg) 0 -100px/900px;
+  height: 740px;
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tv-container {
+  /* border: 2px solid black; */
+  background: url(assets/sony.jpg) 0px 50px/700px no-repeat;
+  height: 100%;
+  width: 700px;
+  padding-top: 110px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+iframe {
+  background-color: black;
+  padding-top: 50px;
+  /* padding-bottom: 50px; */
+  margin-left: 50px;
+  /* margin-right: auto; */
+  margin-bottom: 50px;
+  width: 600px;
+  height: 440px;
+}
