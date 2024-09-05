@@ -1,4 +1,4 @@
-const { normalizeURL, getURLsFromHTML } = require('./crawl.js')
+const { normalizeURL, getURLsFromHTML, extractiframe } = require('./crawl.js')
 const { test, expect } = require('@jest/globals')
 
 test('normalizeURL strip protocol', () => {
@@ -132,5 +132,20 @@ test('getURLsFromHTML episode', () => {
     const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL)
     const expected = ["https://gogoanime3.co/nabari-no-ou--episode-6/",
                         "https://gogoanime3.co/nabari-no-ou--episode-7/"]
+    expect(actual).toEqual(expected)
+})
+
+test('extractiframe iframe', () => {
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <iframe>
+                Video
+            </iframe>
+        </body>
+    </html>
+    `
+    const actual = extractiframe(inputHTMLBody).tagName
+    const expected = "IFRAME"
     expect(actual).toEqual(expected)
 })

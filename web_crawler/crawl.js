@@ -1,5 +1,7 @@
 const { JSDOM } = require('jsdom')
 
+const iframes = []
+
 async function crawlPage(baseURL, currentURL, pages) {
     const baseURLObj = new URL(baseURL)
     const currentURLObj = new URL(currentURL)
@@ -33,6 +35,12 @@ async function crawlPage(baseURL, currentURL, pages) {
         const htmlBody = await resp.text()
 
         const nextURLs = getURLsFromHTML(htmlBody, baseURL)
+
+        const iframe = extractiframe(htmlBody)
+        if (iframe !== undefined) {
+            iframes.push(iframe)
+            console.log(iframes)
+        }
 
         for (const nextURL of nextURLs) {
             pages = await crawlPage(baseURL, nextURL, pages)
@@ -84,6 +92,16 @@ function getURLsFromHTML(htmlBody, baseURL) {
     return urls
 }
 
+function extractiframe(htmlBody) {
+    const dom = new JSDOM(htmlBody)
+    if (htmlBody.includes('iframe')) {
+        const iframe = dom.window.document.querySelector('iframe')
+        console.log(iframe.src)
+        return iframe
+    }
+    // console.log(iframe.tagName)
+}
+
 function normalizeURL(urlString) {
     const urlObj = new URL(urlString)
     const hostPath = `${urlObj.hostname}${urlObj.pathname}`
@@ -96,5 +114,6 @@ function normalizeURL(urlString) {
 module.exports = {
     normalizeURL,
     getURLsFromHTML,
+    extractiframe,
     crawlPage
 }
