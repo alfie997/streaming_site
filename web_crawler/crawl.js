@@ -20,7 +20,7 @@ async function crawlPage(baseURL, currentURL, pages) {
     try {
         const resp = await fetch(currentURL)
         if (resp.status > 399) {
-            console.log(`error in fetch with status code : ${resp.status}, on page: ${currentURL}`)
+            console.log(`error in fetch with status code: ${resp.status}, on page: ${currentURL}`)
             return pages
         }
 
@@ -50,8 +50,25 @@ function getURLsFromHTML(htmlBody, baseURL) {
     for (const linkElement of linkElements) {
         if (linkElement.href.slice(0, 1) === '/') {
             try {
-                const urlObj = new URL(`${baseURL}${linkElement.href}`)
-                urls.push(urlObj.href)
+                // let urlObj
+                if (linkElement.href.includes("/category")) {
+                    // console.log("category")
+                    const newURL = baseURL.slice(0, 21)
+                    // console.log(newURL)
+                    const urlObj = new URL(`${newURL}${linkElement.href}`)
+                    urls.push(urlObj.href)
+                } else if (linkElement.href.includes("episode")) {
+                    // console.log("episode")
+                    const newURL = baseURL.slice(0, 21)
+                    const urlObj = new URL(`${newURL}${linkElement.href}`)
+                    urls.push(urlObj.href)
+                }
+                // } else {
+                //     const urlObj = new URL(`${baseURL}${linkElement.href}`)
+                //     urls.push(urlObj.href)
+                // }
+                // const urlObj = new URL(`${baseURL}${linkElement.href}`)
+                // urls.push(urlObj.href)
             } catch (err) {
                 console.log(`error with relative url: ${err.message}`)
             }

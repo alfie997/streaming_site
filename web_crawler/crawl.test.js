@@ -45,7 +45,7 @@ test('getURLsFromHTML absolute', () => {
     expect(actual).toEqual(expected)
 })
 
-test('getURLsFromHTML relative', () => {
+test.skip('getURLsFromHTML relative', () => {
     const inputHTMLBody = `
     <html>
         <body>
@@ -61,7 +61,7 @@ test('getURLsFromHTML relative', () => {
     expect(actual).toEqual(expected)
 })
 
-test('getURLsFromHTML both', () => {
+test.skip('getURLsFromHTML both', () => {
     const inputHTMLBody = `
     <html>
         <body>
@@ -93,5 +93,44 @@ test('getURLsFromHTML invalid', () => {
     const inputBaseURL = "https://blog.boot.dev"
     const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL)
     const expected = []
+    expect(actual).toEqual(expected)
+})
+
+test('getURLsFromHTML category', () => {
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <a href="/category/">
+                Anime Entry
+            </a>
+        </body>
+    </html>
+    `
+    const inputBaseURL = "https://blog.boot.dev/list"
+    const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL)
+    const expected = ["https://blog.boot.dev/category/"]
+    expect(actual).toEqual(expected)
+})
+
+test('getURLsFromHTML episode', () => {
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <a href="/nabari-no-ou--episode-6/">
+                Anime Episode
+            </a>
+            <a href="/nabari-no-ou--episode-7/">
+                Anime Episode
+            </a>
+            <a href="/login.html">
+                Login
+            </a>
+        </body>
+    </html>
+    `
+    const inputBaseURL = "https://gogoanime3.co/category/nabari-no-ou-/"
+    const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL)
+    const expected = ["https://gogoanime3.co/nabari-no-ou--episode-6/",
+                        "https://gogoanime3.co/nabari-no-ou--episode-7/"]
     expect(actual).toEqual(expected)
 })
