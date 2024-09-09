@@ -40,9 +40,13 @@ async function crawlPage(baseURL, currentURL, pages) {
         if (iframe !== undefined) {
             iframes.push(iframe)
             console.log(iframes)
+            // for (const iframe of iframes) {
+            //     console.log(iframe.src)
+            // }
         }
 
         for (const nextURL of nextURLs) {
+            if (iframes.length > 10) return pages
             pages = await crawlPage(baseURL, nextURL, pages)
         }
     } catch (err) {
@@ -55,6 +59,10 @@ function getURLsFromHTML(htmlBody, baseURL) {
     const urls = []
     const dom = new JSDOM(htmlBody)
     const linkElements = dom.window.document.querySelectorAll('a')
+    // const episodeRelated = dom.window.document.querySelector('#episode_related')
+    // console.log(episodeRelated.)
+    // const episodes = episodeRelated.q
+    // console.log(episodes)
     for (const linkElement of linkElements) {
         if (linkElement.href.slice(0, 1) === '/') {
             try {
@@ -65,7 +73,8 @@ function getURLsFromHTML(htmlBody, baseURL) {
                     // console.log(newURL)
                     const urlObj = new URL(`${newURL}${linkElement.href}`)
                     urls.push(urlObj.href)
-                } else if (linkElement.href.includes("episode")) {
+                } else if (linkElement.href.includes("episode") && linkElement.parentElement.parentElement.id === "episode_related") {
+                    // console.log(linkElement.parentElement.parentElement.id)
                     // console.log("episode")
                     const newURL = baseURL.slice(0, 21)
                     const urlObj = new URL(`${newURL}${linkElement.href}`)
@@ -79,15 +88,15 @@ function getURLsFromHTML(htmlBody, baseURL) {
                 // urls.push(urlObj.href)
             } catch (err) {
                 console.log(`error with relative url: ${err.message}`)
-            }
-        } else {
-            try {
-                const urlObj = new URL(linkElement.href)
-                urls.push(urlObj.href)
-            } catch (err) {
-                console.log(`error with absolute url: ${err.message}`)
-            }
-        }
+            }}
+        // } else {
+        //     try {
+        //         const urlObj = new URL(linkElement.href)
+        //         urls.push(urlObj.href)
+        //     } catch (err) {
+        //         console.log(`error with absolute url: ${err.message}`)
+        //     }
+        // }
     }
     return urls
 }
@@ -96,7 +105,7 @@ function extractiframe(htmlBody) {
     const dom = new JSDOM(htmlBody)
     if (htmlBody.includes('iframe')) {
         const iframe = dom.window.document.querySelector('iframe')
-        console.log(iframe.src)
+        // console.log(iframe.src)
         return iframe
     }
     // console.log(iframe.tagName)
@@ -115,5 +124,6 @@ module.exports = {
     normalizeURL,
     getURLsFromHTML,
     extractiframe,
-    crawlPage
+    crawlPage,
+    iframes
 }
