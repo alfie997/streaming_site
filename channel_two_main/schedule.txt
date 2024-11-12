@@ -1,0 +1,11 @@
+# An example schedule file. See README.md for instructions on how to program Channel Two's schedule.
+
+shuffle=false
+
+30 15 * * * media/gunslinger/gunslinger1.mp4
+
+0 16 * * * media/aikatsu/aikatsu11.mp4
+
+30 16 * * * media/fullmetal/fullmetal35.mp4
+
+0 17 * * * media/conan/conan8.mp4

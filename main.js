@@ -1,8 +1,8 @@
 const channelButton = document.querySelector(".channel-button");
 const iframe = document.querySelector("iframe");
 
-console.log(iframe);
-console.log(iframe.src);
+// console.log(iframe);
+// console.log(iframe.src);
 
 channelButton.addEventListener("click", (e) => {
     if (iframe.src === "http://localhost:5500/channel_two_main/channel-two.html") {

@@ -1,0 +1,7 @@
+# An example schedule file. See README.md for instructions on how to program Channel Two's schedule.
+
+shuffle=false
+
+30 15 * * * media/owarimonogatari/owarimonogatari2.mp4
+
+0 16 * * * media/chikyuu/chikyuu1.mp4

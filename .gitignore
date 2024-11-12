@@ -1,3 +1,9 @@
 assets/
-channel_two_main/
-channel_two_sub/
+channel_two_main/assets/
+channel_two_main/lib/
+channel_two_main/media/
+channel_two_main/screenshots/
+channel_two_sub/assets/
+channel_two_sub/lib/
+channel_two_sub/media/
+channel_two_sub/screenshots/
